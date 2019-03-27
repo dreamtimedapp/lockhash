@@ -1,0 +1,260 @@
+{{ template "base.html" .}}
+{{ define "body" }}
+<style type="text/css">
+  ul.avatars {
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    align-items: flex-end;
+  }
+
+  ul.avatars li {
+    margin-right: 1em;
+  }
+</style>
+<div class="columns">
+  <div class="column is-3">
+    {{ template "user_center/sidebar.html" .}}
+  </div>
+  <div class="column is-9">
+    <div class="box" id="form"></div>
+  </div>
+</div>
+<script type="text/babel">
+  class AvatarForm extends React.Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        loading: true,
+        currentTab: 'upload',
+        avatar: '',
+        avatars: [],
+        defaultAvatars: []
+      }
+    }
+
+    componentDidMount() {
+      get('/api/user_center/user_info').then((data) => {
+        this.setState({
+          loading: false,
+          avatar: data.avatar,
+          avatars: data.avatars
+        })
+      });
+    }
+
+    setDefaultTab = () => {
+      if (!this.state.defaultAvatars.length) {
+        get('/api/user_center/default_avatars').then((data) => {
+          this.setState({
+            defaultAvatars: data.default_avatars,
+          })
+        });
+      }
+
+      this.setState({currentTab: 'default'});
+    }
+
+    handleUploadSubmit = (e) => {
+      e.preventDefault();
+
+      if (!document.forms["upload"].image.files.length) {
+        alert("请选择图片");
+        return
+      }
+
+      let file = document.forms["upload"].image.files[0];
+      let formData = new FormData();
+      formData.append('image', file);
+
+      postForm("/api/user_center/upload_avatar", formData).then((data) => {
+        if (data.status) {
+          this.setState({avatars: data.avatars});
+        } else {
+          alter(data.message);
+        }
+      });
+    }
+
+    handleChooseAvatarSubmit = (e) => {
+      e.preventDefault();
+
+      const {avatar} = this.state;
+
+      if (!avatar)  {
+        alert('请选择头像');
+        return;
+      }
+
+      put('/api/user_center/set_avatar', {
+        avatar: this.state.avatar
+      }).then((data) => {
+        if (data.status) {
+          this.setState({avatars: data.avatars});
+        } else {
+          alert(data.message);
+        }
+      });
+    }
+
+    handleFromGravatar = (e) => {
+      get('/api/user_center/from_gravatar').then((data) => {
+        if (data.status) {
+          this.setState({avatars: data.avatars});
+        } else {
+          alert(data.message);
+        }
+      });
+    }
+
+    handleChooseAvatarChange = (e) => {
+      this.setState({avatar: e.target.value});
+    }
+
+    render() {
+      const {loading, currentTab, avatar, avatars} = this.state;
+      let images = [];
+      avatars.map((src, index) => {
+        images.push(<li><img src={src} /></li>)
+      })
+
+      let currentAvatar;
+      if (loading) {
+        currentAvatar = <Loading />;
+      } else {
+        currentAvatar = (<ul className="avatars">
+          {images}
+        </ul>);
+      }
+
+      let uploadClass = '';
+      let defalutClass = '';
+      let gravatarClass = '';
+
+      let form;
+
+      if (currentTab == 'upload') {
+        uploadClass = 'is-active';
+
+        form = (<form onSubmit={this.handleUploadSubmit} name="upload">
+          <div className="field is-horizontal">
+            <div className="field-label is-normal">
+              <label className="label">选择图片</label>
+            </div>
+            <div className="field-body">
+              <div className="field">
+                <div className="control">
+                  <input type="file" name="image" accept="image/jpeg,image/x-png" />
+                </div>
+                <p className="help">
+                  支持 500K 以内的 jpg/png 文件
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="field is-horizontal">
+            <div className="field-label">
+            </div>
+            <div className="field-body">
+              <div className="field">
+                <div className="control">
+                  <button className="button is-primary">
+                    上传
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>);
+      } else if (currentTab == 'default') {
+        defalutClass = 'is-active';
+
+        let defaultImages = [];
+        this.state.defaultAvatars.map((filename) => {
+          let src = "https://is.golangtc.com/avatar/" + filename + "?width=32&height=32&mode=fill";
+          let checked = avatar == filename;
+          defaultImages.push(<label className="radio">
+            <input
+              type="radio"
+              name="default_avatar"
+              value={filename}
+              defaultChecked={checked}
+              onChange={this.handleChooseAvatarChange} />
+            <img src={src} />
+          </label>);
+        });
+
+        form = (<form onSubmit={this.handleChooseAvatarSubmit}>
+          <div className="field is-horizontal">
+            <div className="field-label">
+              选择头像
+            </div>
+            <div className="field-body">
+              <div className="field">
+                <div className="control">
+                  {defaultImages}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="field is-horizontal">
+            <div className="field-label">
+            </div>
+            <div className="field-body">
+              <div className="field">
+                <div className="control">
+                  <button className="button is-primary">
+                    确认
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>);
+      } else {
+        gravatarClass = 'is-active';
+
+        form = (<div>
+          <div className="field is-horizontal">
+            <div className="field-label">
+            </div>
+            <div className="field-body">
+              <div className="field">
+                <div className="control">
+                  <button className="button is-primary" onClick={this.handleFromGravatar}>
+                    从 Gravatar 获取
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>);
+      }
+
+      return (<div>
+        <h1 className="subtitle">当前头像</h1>
+        {currentAvatar}
+        <hr />
+        <div className="tabs is-boxed">
+          <ul>
+            <li className={uploadClass}>
+              <a onClick={ () => this.setState({currentTab: 'upload'}) }>上传头像</a>
+            </li>
+            <li className={defalutClass}>
+              <a onClick={this.setDefaultTab}>选择默认头像</a>
+            </li>
+            <li className={gravatarClass}>
+              <a onClick={ () => this.setState({currentTab: 'gavatar'}) }>从 Gravatar 获取</a>
+            </li>
+          </ul>
+        </div>
+        {form}
+      </div>);
+    }
+  }
+
+  ReactDOM.render(<AvatarForm />, document.getElementById('form'));
+</script>
+{{ end }}

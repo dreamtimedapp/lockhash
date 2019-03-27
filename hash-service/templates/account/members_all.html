@@ -1,0 +1,14 @@
+{{ template "base.html" . }}
+{{ define "body" }}
+<div class="users">
+  {{ range .members }}
+    <a class="user" href="/member/{{ .Username }}" title="{{ .Username }}">
+      <img src="{{ .AvatarImgSrc 48 }}">
+      <span>{{ .Username }}</span>
+    </a>
+  {{ end }}
+</div>
+
+{{ template "partials/pagination.html" . }}
+
+{{ end }}

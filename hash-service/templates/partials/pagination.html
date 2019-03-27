@@ -1,0 +1,34 @@
+{{ $pages := .pagination.Pages }}
+{{ $current := .pagination.Current }}
+
+<style type="text/csss">
+.disabled.item {
+    opacity: 0.45 !important;
+}
+
+.disabled {
+    cursor: not-allowed !important;
+}
+</style>
+
+{{ if $pages }}
+<div class="pagination" role="navigation">
+  {{ $prev := $.pagination.Prev }}
+  <a class="pagination-previous" href="{{ $.pagination.Url $.url $prev }}"{{if not $prev}} disabled{{ end }}>&lt;</a>
+
+  {{ $next := $.pagination.Next }}
+  <a class="pagination-next" href="{{ $.pagination.Url $.url $next }}"{{ if not $next }} disabled{{ end }}>&gt;</a>
+
+  <ul class="pagination-list">
+  {{ range $pages }}
+    <li>
+    {{ if . }}
+      <a class="pagination-link{{ if eq $current . }} is-current{{ end }}" href="{{ $.pagination.Url $.url . }}">{{ . }}</a>
+    {{ else }}
+      <span class="pagination-ellipsis">&hellip;</span>
+    {{ end }}
+    </li>
+  {{ end }}
+  </ul>
+</div>
+{{ end }}

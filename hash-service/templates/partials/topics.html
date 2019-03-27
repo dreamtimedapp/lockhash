@@ -1,0 +1,41 @@
+<div class="box content">
+{{ range .topics }}
+  {{ $creater := .Creater $.db }}
+  {{ $node := .Node $.db }}
+  <article class="media post">
+    <figure class="media-left">
+      <p class="image is-40x40">
+        <a href="/member/{{ $creater.Username }}"><img src="{{ $creater.AvatarImgSrc 40 }}"></a>
+      </p>
+    </figure>
+    <div class="media-content">
+      <div class="content">
+        <div class="title">
+          <a href="/t/{{ .Id_.Hex }}"><strong>{{ truncate .Title 40 "..." }}</strong></a>
+        </div>
+        <div class="metadata">
+          <a href="/member/{{ $creater.Username }}">{{ $creater.Username }}</a>
+          {{ if .CommentCount }}
+            {{ $latestReplier := .LatestReplier $.db }}
+            {{ if $latestReplier}}
+              <time datetime="{{ .LatestRepliedAt }}" title="{{ formatdatetime .LatestRepliedAt }}">{{ formattime .LatestRepliedAt }}</time> •
+              最后回复来自 <a href="/member/{{ $latestReplier.Username }}">{{ $latestReplier.Username }}</a>
+            {{ else }}
+              <time datetime="{{ formatdatetime .CreatedAt }}" title="{{ formatdatetime .CreatedAt }}">{{ formattime .CreatedAt }}</time>
+            {{ end }}
+          {{ else }}
+            <time datetime="{{ formatdatetime .CreatedAt }}" title="{{ formatdatetime .CreatedAt }}">{{ formattime .CreatedAt }}</time>
+          {{ end }}
+          &nbsp;
+          <a class="tag" href="/go/{{$node.Id}}">{{ $node.Name }}</a>
+        </div>
+      </div>
+    </div>
+    {{ if .CommentCount }}
+    <div class="media-right">
+      <span class="has-text-grey-light"><i class="fa fa-comments"></i> {{ .CommentCount }}</span>
+    </div>
+    {{ end }}
+  </article>
+{{ end }}
+</div>
