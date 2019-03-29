@@ -4,7 +4,7 @@ export default http => {
   // 请求拦截
   http.interceptors.request.use(
     config => {
-      // config.withCredentials = true // 需要跨域打开此配置
+      config.withCredentials = true // 需要跨域打开此配置
       return config
     },
     error => {

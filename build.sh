@@ -1,3 +1,6 @@
+
+
 docker-compose down
 docker-compose stop
-docker-compose up
+
+docker-compose up --build
