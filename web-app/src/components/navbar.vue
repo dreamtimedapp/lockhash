@@ -22,7 +22,7 @@
               <a href="javascript:void(0);" class="nav-link">节点</a>
             </router-link>
             <li class="nav-item">
-              <a class="nav-link" href="https://easywechat.com?utm_source=yike.io">SDK</a>
+              <a class="nav-link" href="https://etherscan.io/">内容上链</a>
             </li>
             <li class="nav-item">
               <nav-search />
