@@ -40,7 +40,7 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 COPY . /var/www
 
 # Copy existing application directory permissions
-COPY --chown=www-data:www-data . /var/www
+COPY --chown=www:www . /var/www
 
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 755 /var/www/storage
