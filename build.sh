@@ -1,3 +1,6 @@
+cd ./web-app
+npm run build 
+cd ../
 
 
 docker-compose down

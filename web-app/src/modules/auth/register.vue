@@ -58,6 +58,7 @@ import GooglePlus from '$icons/GooglePlus'
 import FacebookIcon from '$icons/Facebook'
 import QqIcon from '$icons/Qqchat'
 import GithubIcon from '$icons/GithubCircle'
+import qs from 'qs'
 
 export default {
   name: 'register',
@@ -112,7 +113,7 @@ export default {
       }
 
       this.$http
-        .post('user/exists', { username: this.username })
+        .post('user/exists',qs.stringify({ username: this.username }))
         .then(response => {
           if (!response.success) {
             this.error = true
@@ -130,7 +131,7 @@ export default {
         return this.$message.error('请输入正确的邮箱地址')
       }
 
-      this.$http.post('user/exists', { email: this.email }).then(response => {
+      this.$http.post('user/exists', qs.stringify({ email: this.email }),).then(response => {
         if (!response.success) {
           this.error = true
           this.$refs['emailInput'].classList.add('is-invalid')
@@ -140,7 +141,7 @@ export default {
     },
     showCaptcha () {
       let captcha = new window.TencentCaptcha(
-        process.env.VUE_APP_CAPTCHA_ID_REGISTER,
+        '2024993958',
         res => {
           if (res.ret === 0) {
             this.ticket = res.ticket
@@ -160,7 +161,6 @@ export default {
 
       try {
         await this.attemptRegister(this.$data)
-
         this.$message.warning('注册成功，请先验证你邮箱地址！')
         this.$router.push({ name: 'home' })
       } catch (e) {

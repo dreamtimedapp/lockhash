@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import qs from 'qs'
 export default {
   data () {
     return {
@@ -23,9 +24,9 @@ export default {
   },
   methods: {
     submit () {
-      this.$http.post('user/forget-password', {
+      this.$http.post('user/forget-password',qs.stringify( {
         email: this.email
-      }).then(() => {
+      })).then(() => {
         this.$message.success('邮件发送成功，请及时查看您的邮箱！')
       })
     }

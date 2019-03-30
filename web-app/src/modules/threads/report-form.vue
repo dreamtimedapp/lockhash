@@ -13,6 +13,7 @@
 
 <script>
 import { Dialog } from 'element-ui'
+import qs from 'qs'
 import 'element-ui/lib/theme-chalk/dialog.css'
 
 export default {
@@ -33,9 +34,9 @@ export default {
   methods: {
     report () {
       this.$http
-        .post(`threads/${this.$route.params.id}/report`, {
+        .post(`threads/${this.$route.params.id}/report`,qs.stringify(  {
           remark: this.remark
-        })
+        }))
         .then(() => {
           this.close()
           this.$message.success('举报成功！')

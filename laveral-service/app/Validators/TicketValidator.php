@@ -20,9 +20,10 @@ class TicketValidator
         }
 
         $config = config('services.captcha.'.$parameters[0]);
+        \Log::error('Captcha config:',$config );
         $query = [
-            'aid' => $config['aid'],
-            'AppSecretKey' => $config['secret'],
+            'aid' => '2024993958',
+            'AppSecretKey' => '0ENnSm3Ys6BwShuaAgIqDOQ**',
             'Ticket' => $value,
             'Randstr' => \request('randstr'),
             'UserIP' => \request()->ip(),
