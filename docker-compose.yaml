@@ -14,7 +14,7 @@ services:
         - ./laveral-service:/var/www/laveral
         - ./laveral-service/php/local.ini:/usr/local/etc/php/conf.d/local.ini
       environment:
-          - DB_HOST=database
+          - DB_HOST=mysql
           - REDIS_HOST=redis
       links:
         - mysql
