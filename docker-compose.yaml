@@ -11,7 +11,7 @@ services:
       tty: true
       working_dir: /var/www
       volumes:
-        - ./laveral-service:/var/www/laveral
+        - ./laveral-service:/var/www/
         - ./laveral-service/php/local.ini:/usr/local/etc/php/conf.d/local.ini
       environment:
           - DB_HOST=mysql
@@ -30,7 +30,7 @@ services:
         context: ./nginx
         dockerfile: ./Dockerfile
       volumes:
-        - ./laveral-service:/var/www/laveral
+        - ./laveral-service:/var/www/
         - ./web-app/dist:/var/www/dist
       links:
         - laveral-service  
