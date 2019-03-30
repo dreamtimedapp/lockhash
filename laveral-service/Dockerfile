@@ -44,7 +44,8 @@ COPY --chown=www:www . /var/www
 
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 755 /var/www/storage
-
+RUN chmod -Rf 777 "/var/www/storage/logs/laravel.log"
+RUN chown -R 33:33 /var/www
 RUN php artisan storage:link
 
 # Change current user to www
