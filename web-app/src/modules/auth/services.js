@@ -7,8 +7,8 @@ import qs from 'qs'
 export const postLogin = ({ username, password }) => {
   return http.post('/oauth/token', qs.stringify({
     grant_type: 'password',
-    client_id: process.env.VUE_APP_AUTH_CLIENT_ID,
-    client_secret: process.env.VUE_APP_AUTH_CLIENT_SECRET,
+    client_id: process.env.VUE_APP_AUTH_CLIENT_ID_PRODUCT,
+    client_secret: process.env.VUE_APP_AUTH_CLIENT_SECRET_PRODUCT,
     username: username,
     password: password,
     scope: ''
