@@ -30,7 +30,7 @@ services:
         context: ./nginx
         dockerfile: ./Dockerfile
       volumes:
-        - ./laveral-service:/var/www/
+        - ./laveral-service:/var/www/public
         - ./web-app/dist:/var/www/dist
       links:
         - laveral-service  
