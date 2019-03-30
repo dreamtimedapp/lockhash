@@ -43,7 +43,7 @@ COPY . /var/www
 COPY --chown=www:www . /var/www
 
 RUN chmod -R 755 /var/www/storage
-RUN sudo php artisan storage:link
+RUN php artisan storage:link
 
 # Change current user to www
 USER www
