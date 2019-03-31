@@ -42,10 +42,8 @@ COPY . /var/www
 # Copy existing application directory permissions
 COPY --chown=www:www . /var/www
 
+RUN php artisan storage:link
 RUN chown -R www-data:www-data /var/www
-RUN chmod -R 755 /var/www/storage
-RUN chown -R 33:33 /var/www
-
 # Change current user to www
 
 # Expose port 9000 and start php-fpm server
