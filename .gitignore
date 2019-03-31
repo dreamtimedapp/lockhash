@@ -1,0 +1,6 @@
+./web-app/dist
+./web-app/env
+./web-app/node_modules
+./laveral-service/.env 
+
+
