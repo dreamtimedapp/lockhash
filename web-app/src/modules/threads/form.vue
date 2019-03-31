@@ -145,7 +145,7 @@ export default {
     },
     showCaptcha (draft) {
       let captcha = new TencentCaptcha(
-        process.env.VUE_APP_CAPTCHA_ID_PUBLISH,
+        process.env.VUE_APP_CAPTCHA_ID_REGISTER,
         res => {
           if (res.ret === 0) {
             this.form.ticket = res.ticket
