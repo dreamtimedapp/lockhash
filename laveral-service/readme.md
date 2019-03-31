@@ -1,20 +1,5 @@
 
-<img align="right" width="80" src="https://user-images.githubusercontent.com/1472352/48118952-d4f4db80-e2a8-11e8-8d0a-37b24c071b12.png"/>
-
-<h1 align="left"><a href="https://yike.io">Yike.io</a></h1>
-
-[![Build Status](https://travis-ci.org/overtrue/api.yike.io.svg?branch=master)](https://travis-ci.org/overtrue/api.yike.io)
-
-此项目为 https://yike.io 的后端 API，基于 Laravel 5 开发。
-
-> 🏵前端源码：https://github.com/overtrue/yike.io
-
-开源中国 Gitee 仓库：[![Fork me on Gitee](https://gitee.com/overtrue/api.yike.io/widgets/widget_3.svg)](https://gitee.com/overtrue/api.yike.io)
-
-> 🚨此次开源只是应大家的要求，所以请不要联系我咨询任何使用问题，遇到问题请自行解决，熟读 Laravel 文档。
-> 如果你有兴趣参与改进，请直接 PR 即可。
-
-> 🎬快速上手视频：[053. 优秀的开源社区——yike.io](https://learnku.com/courses/laravel-package/yikeio/2505)
+<h1 align="left"><a href="https://hashlock.io">hashlock.io</a></h1>
 
 ## 运行环境要求
 
@@ -23,11 +8,6 @@
 - MySQL 5.7+
 - Redis 3.0+
 
-## 开发环境部署/安装
-
-本项目代码使用 PHP 框架 [Laravel 5](https://learnku.com/docs/laravel/5.5) 开发，本地开发环境使用 [Laravel Homestead](https://learnku.com/docs/laravel/5.5/homestead/1285)。
-
-下文将在假定读者已经安装好了 Homestead 的情况下进行说明。如果您还未安装 Homestead，可以参照 [Homestead 安装与设置](https://learnku.com/docs/laravel/5.5/homestead/1285#installation-and-setup) 进行安装配置。
 
 ### 基础安装
 
@@ -35,44 +15,9 @@
 
 克隆源代码到本地：
 
-    > git clone git@github.com:overtrue/api.yike.io.git
+    > git clone git@github.com:dreamtimedapp/lockhash.git
 
-#### 配置本地的 Homestead 环境
-
-1). 运行以下命令编辑 Homestead.yaml 文件：
-
-```shell
-homestead edit
-```
-
-2). 加入对应修改，如下所示：
-
-```
-folders:
-    - map: ~/my-path/api.yike.io/ # 你本地的项目目录地址
-      to: /home/vagrant/api.yike.io
-
-sites:
-    - map: api.yike.io.test
-      to: /home/vagrant/api.yike.io/public
-
-databases:
-    - api_yike_io
-```
-
-3). 应用修改
-
-修改完成后保存，然后执行以下命令应用配置信息修改：
-
-```shell
-homestead provision
-```
-
-随后请运行 `homestead reload` 进行重启。
-
-#### 安装扩展包依赖
-
-	composer install
+#### 本地docker环境
 
 #### 生成配置文件
 

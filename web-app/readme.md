@@ -1,15 +1,6 @@
 
-<img align="right" width="100" src="https://user-images.githubusercontent.com/1472352/48118952-d4f4db80-e2a8-11e8-8d0a-37b24c071b12.png"/>
+<h1 align="left"><a href="https://lockhash.io">lockhash.io</a></h1>
 
-<h1 align="left"><a href="https://yike.io">Yike.io</a></h1>
-
-论坛项目源码：https://yike.io, 基于 Vuejs 开发的 Laravel SPA 项目。
-
-> 🏵后端源码：https://github.com/overtrue/api.yike.io
-
-开源中国 Gitee 仓库：[![Fork me on Gitee](https://gitee.com/overtrue/yike.io/widgets/widget_3.svg)](https://gitee.com/overtrue/yike.io)
-
-> 🎬快速上手视频：[053. 优秀的开源社区——yike.io](https://learnku.com/courses/laravel-package/yikeio/2505)
 
 ## 安装
 
