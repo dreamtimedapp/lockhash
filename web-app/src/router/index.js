@@ -23,7 +23,7 @@ const router = new Router({
   routes,
   linkActiveClass: 'active',
   linkExactActiveClass: 'active',
-  mode: 'history'
+  mode: 'hash'
 })
 
 router.beforeEach(beforeEach)
