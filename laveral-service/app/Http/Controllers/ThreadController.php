@@ -64,7 +64,7 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Thread::class);
+       // $this->authorize('create', Thread::class);
         $this->validate($request, [
             'title' => 'required|min:6|user_unique_content:threads,title',
             'type' => 'in:markdown,html',
